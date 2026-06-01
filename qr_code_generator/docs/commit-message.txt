@@ -1,0 +1,1 @@
+feat(qr): add FastAPI QR code generator MVP
