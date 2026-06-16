@@ -38,6 +38,30 @@ Returns local KB status.
 }
 ```
 
+## `GET /documents`
+
+Returns indexed documents and sections. Run `POST /index` first if the index is empty.
+
+### Response `200`
+
+```json
+{
+  "files_indexed": 1,
+  "sections_indexed": 4,
+  "documents": [
+    {
+      "file": "product.md",
+      "sections": [
+        {
+          "source": "product.md#overview",
+          "heading": "Overview"
+        }
+      ]
+    }
+  ]
+}
+```
+
 ## `POST /index`
 
 Builds a local Markdown section index.
@@ -86,11 +110,13 @@ Creates:
   "answer": "The Moat prototype is designed for local learning sessions and does not require paid APIs.",
   "sources": [
     {
-      "source": "product.md",
+      "source": "product.md#pricing",
       "heading": "Pricing",
-      "score": 7.6652
+      "score": 7.6652,
+      "content": "The Moat prototype is designed for local learning sessions..."
     }
-  ]
+  ],
+  "learning_focus": "Strongest match: Pricing (score 7.6652)."
 }
 ```
 
@@ -116,14 +142,16 @@ Creates:
 
 | Field | Type | Meaning |
 |---|---|---|
-| `source` | string | Markdown filename |
-| `heading` | string | Matched section heading |
-| `score` | number | Local keyword relevance score |
+| `source` | string | Markdown section id, usually `file.md#heading` |
+| `heading` | string | Matched heading path |
+| `score` | number | Local BM25-style relevance score |
+| `content` | string | Short source preview |
 
 ## Curl Verification
 
 ```powershell
 curl http://127.0.0.1:8002/health
 curl -X POST http://127.0.0.1:8002/index
+curl http://127.0.0.1:8002/documents
 curl -X POST http://127.0.0.1:8002/chat -H "Content-Type: application/json" -d "{\"question\":\"Does this require paid APIs?\"}"
 ```

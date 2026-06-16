@@ -1,31 +1,11 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
-from pydantic import BaseModel, Field
 
-from .retrieval import DOCS_DIR, INDEX_PATH, build_index, extract_answer, load_index, rank_sections
+from .routes import router
 
 
 app = FastAPI(title="Knowledge Base Q&A Bot")
-
-
-class ChatRequest(BaseModel):
-    question: str = Field(..., min_length=1)
-
-
-class Source(BaseModel):
-    source: str
-    heading: str
-    score: float
-
-
-class ChatResponse(BaseModel):
-    answer: str
-    sources: list[Source]
-
-
-@app.get("/health")
-def health() -> dict:
-    return {"status": "ok"}
+app.include_router(router)
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -665,37 +645,3 @@ def serve_home() -> HTMLResponse:
         """
     )
 
-
-@app.get("/metadata")
-def metadata() -> dict:
-    documents = [path.name for path in sorted(DOCS_DIR.glob("*.md"))] if DOCS_DIR.exists() else []
-    sections = load_index()
-    return {
-        "documents": documents,
-        "indexed_sections": len(sections),
-        "index_exists": INDEX_PATH.exists(),
-    }
-
-
-@app.post("/index")
-def index_documents() -> dict:
-    sections = build_index()
-    return {"status": "indexed", "count": len(sections)}
-
-
-@app.post("/chat", response_model=ChatResponse)
-def chat(request: ChatRequest) -> ChatResponse:
-    sections = load_index()
-    if not sections:
-        return ChatResponse(answer="Knowledge base is empty. Run /index first.", sources=[])
-
-    ranked_sections = rank_sections(request.question, sections)
-    if not ranked_sections:
-        return ChatResponse(answer="I cannot confirm the answer from the knowledge base.", sources=[])
-
-    answer = extract_answer(request.question, ranked_sections)
-    sources = [
-        Source(source=section["source"], heading=section["heading"], score=section["score"])
-        for section in ranked_sections
-    ]
-    return ChatResponse(answer=answer, sources=sources)

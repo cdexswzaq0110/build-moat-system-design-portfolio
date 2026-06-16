@@ -8,8 +8,10 @@ This implementation is intentionally local-first. It does not require OpenAI API
 
 - Index Markdown files under `docs/sample/`.
 - Split documents into heading-based sections.
-- Rank relevant sections with local keyword scoring.
-- Return grounded answers with source references.
+- Rank relevant sections with local BM25-style scoring.
+- Preserve heading paths for stronger source context.
+- Return grounded answers with section citations, source previews, and learning focus.
+- Inspect indexed documents through `/documents`.
 - Provide a browser UI for indexing, asking questions, and reviewing sources.
 - Persist the generated index under `.kb/index.json`.
 
@@ -34,6 +36,7 @@ Click `Rebuild Index` before asking questions.
 |---|---|---|
 | `GET` | `/health` | Health check |
 | `GET` | `/metadata` | Return document and index status |
+| `GET` | `/documents` | Return indexed documents and sections |
 | `POST` | `/index` | Build the local Markdown index |
 | `POST` | `/chat` | Answer a question from indexed sources |
 
@@ -43,6 +46,12 @@ See [API_REFERENCE.md](API_REFERENCE.md) for request and response details.
 
 ```powershell
 python -m pytest tests
+```
+
+Expected result:
+
+```text
+7 passed
 ```
 
 ## Documentation

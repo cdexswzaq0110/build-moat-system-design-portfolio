@@ -35,6 +35,8 @@ def test_rank_sections_rejects_stopword_only_match() -> None:
 
 
 def test_extract_answer_is_local_and_grounded() -> None:
-    sections = [{"content": "Markdown KB retrieval indexes each heading section."}]
+    sections = [{"id": "doc.md#retrieval", "content": "Markdown KB retrieval indexes each heading section."}]
 
-    assert extract_answer("How does retrieval work?", sections) == "Markdown KB retrieval indexes each heading section."
+    assert extract_answer("How does retrieval work?", sections) == (
+        "Markdown KB retrieval indexes each heading section. [doc.md#retrieval]"
+    )

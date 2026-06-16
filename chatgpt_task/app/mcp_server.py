@@ -2,14 +2,27 @@ import asyncio
 import json
 from typing import Any, Callable
 
-from .scheduler import complete_job, create_job, get_job, initialize_database, list_jobs
+from .scheduler import (
+    cancel_job,
+    complete_job,
+    create_job,
+    get_job,
+    initialize_database,
+    list_jobs,
+    process_due_jobs,
+)
 
 
 ToolHandler = Callable[[dict[str, Any]], dict[str, Any]]
 
 
 def handle_task_create(arguments: dict[str, Any]) -> dict[str, Any]:
-    return create_job(content=arguments["content"], due_at=arguments["due_at"])
+    return create_job(
+        content=arguments["content"],
+        due_at=arguments["due_at"],
+        priority=arguments.get("priority", "medium"),
+        note=arguments.get("note", ""),
+    )
 
 
 def handle_task_list(arguments: dict[str, Any]) -> dict[str, Any]:
@@ -30,11 +43,24 @@ def handle_task_complete(arguments: dict[str, Any]) -> dict[str, Any]:
     return job
 
 
+def handle_task_cancel(arguments: dict[str, Any]) -> dict[str, Any]:
+    job = cancel_job(int(arguments["id"]))
+    if job is None:
+        raise ValueError("job not found")
+    return job
+
+
+def handle_task_process_due(_: dict[str, Any]) -> dict[str, Any]:
+    return process_due_jobs()
+
+
 TOOL_REGISTRY: dict[str, ToolHandler] = {
     "task.create": handle_task_create,
     "task.list": handle_task_list,
     "task.get": handle_task_get,
     "task.complete": handle_task_complete,
+    "task.cancel": handle_task_cancel,
+    "task.process_due": handle_task_process_due,
 }
 
 
@@ -67,6 +93,12 @@ async def run_stdio_server() -> None:
                     "properties": {
                         "content": {"type": "string"},
                         "due_at": {"type": "string", "description": "ISO datetime"},
+                        "priority": {
+                            "type": "string",
+                            "enum": ["low", "medium", "high"],
+                            "default": "medium",
+                        },
+                        "note": {"type": "string"},
                     },
                     "required": ["content", "due_at"],
                 },
@@ -96,6 +128,20 @@ async def run_stdio_server() -> None:
                     "properties": {"id": {"type": "integer"}},
                     "required": ["id"],
                 },
+            ),
+            Tool(
+                name="task.cancel",
+                description="Cancel a pending or queued scheduled task.",
+                inputSchema={
+                    "type": "object",
+                    "properties": {"id": {"type": "integer"}},
+                    "required": ["id"],
+                },
+            ),
+            Tool(
+                name="task.process_due",
+                description="Run the local watcher/worker pass for due tasks.",
+                inputSchema={"type": "object", "properties": {}},
             ),
         ]
 
