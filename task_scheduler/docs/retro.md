@@ -10,7 +10,7 @@ Time buckets are a data modeling choice, not a route-handler concern.
 
 ## Lacked
 
-Original `PROMPT.md` and BDD files were missing.
+Early requirements were consolidated into product and architecture documents.
 
 ## Longed For
 

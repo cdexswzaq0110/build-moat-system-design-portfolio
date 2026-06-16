@@ -6,7 +6,7 @@ Users need a way to ask questions against a small Markdown knowledge base and re
 
 ## Target User
 
-- Workshop participant learning retrieval trade-offs.
+- Developer evaluating retrieval trade-offs.
 - Developer comparing Markdown KB and RAG designs.
 - Knowledge owner who wants transparent, inspectable retrieval.
 
@@ -21,7 +21,7 @@ Users need a way to ask questions against a small Markdown knowledge base and re
 
 ## Non-Goals
 
-- Paid LLM generation.
+- Hosted text generation.
 - Hosted embeddings.
 - FAISS vector search in this MVP.
 - Multi-user auth.
@@ -82,7 +82,7 @@ Acceptance:
 ## Risks
 
 - Keyword search can miss paraphrases.
-- Extractive answers are less polished than LLM-generated answers.
+- Extractive answers are less polished than generated answers.
 - Long sections may return broad context.
 
 ## Future Improvements

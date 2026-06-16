@@ -1,4 +1,4 @@
-import asyncio
+﻿import asyncio
 import json
 from typing import Any, Callable
 
@@ -80,7 +80,7 @@ async def run_stdio_server() -> None:
         raise RuntimeError("Install requirements-mcp.txt before running the optional MCP server") from error
 
     initialize_database()
-    server = Server("chatgpt-task-scheduler")
+    server = Server("task-scheduler")
 
     @server.list_tools()
     async def list_available_tools() -> list[Tool]:

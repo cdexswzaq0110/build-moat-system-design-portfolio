@@ -1,9 +1,5 @@
 # QR Code Generator Design Questions
 
-## Context
-
-This project uses the Challenge Track because the scaffold files and original `PROMPT.md` were missing. The MVP was rebuilt from the README and the user's exercise description.
-
 ## 1. How should short tokens be generated?
 
 ### Decision
@@ -69,7 +65,7 @@ The data model is one table and the project runs locally. SQLite keeps setup low
 
 ### Trade-off
 
-SQLite is not ideal for high write concurrency. That is acceptable for this exercise.
+SQLite is not ideal for high write concurrency. That is acceptable for a local-first MVP.
 
 ### Production Direction
 

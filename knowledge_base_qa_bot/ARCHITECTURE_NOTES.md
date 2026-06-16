@@ -1,9 +1,5 @@
 # Knowledge Base Q&A Bot Design Questions
 
-## Context
-
-This project uses the Challenge Track with Markdown KB retrieval because the scaffold files and original `PROMPT.md` were missing. The user also explicitly required no paid APIs, so OpenAI generation and hosted embeddings are out of scope.
-
 ## 1. Retrieval unit: file, section, or chunk?
 
 ### Decision
@@ -36,7 +32,7 @@ Persist `.kb/index.json`.
 
 ### Why
 
-The index must be inspectable for workshop debugging. JSON makes the index readable by humans and coding agents without a database browser.
+The index must be inspectable during local development. JSON makes the index readable by humans and developers without a database browser.
 
 ### Alternatives
 
@@ -46,7 +42,7 @@ The index must be inspectable for workshop debugging. JSON makes the index reada
 
 ### Trade-off
 
-JSON is not ideal for large knowledge bases. That is acceptable for this exercise.
+JSON is not ideal for large knowledge bases. That is acceptable for a local-first MVP.
 
 ### Production Direction
 
@@ -56,16 +52,16 @@ Move to SQLite, Postgres, or a search engine when corpus size grows.
 
 ### Decision
 
-No LLM prompt is used in the MVP. The system returns extractive answers from retrieved sections.
+No external generation step is used in the MVP. The system returns extractive answers from retrieved sections.
 
 ### Why
 
-The user disallowed paid APIs. Using a paid LLM to turn context into prose would violate that constraint.
+The product is designed to run locally without paid services. Using hosted generation to turn context into prose would violate that constraint.
 
 ### Alternatives
 
-- OpenAI chat completion: fluent, but paid and disallowed.
-- Local LLM: possible, but setup-heavy and environment-dependent.
+- Hosted text generation: fluent, but outside the local-first scope.
+- Local text generation: possible, but setup-heavy and environment-dependent.
 - Pure extractive answer: less fluent, but deterministic and free.
 
 ### Trade-off
@@ -132,11 +128,11 @@ Use Markdown KB.
 
 ### Why
 
-Markdown KB is local, inspectable, and free. Vector RAG would need embeddings. The original exercise mentioned OpenAI embeddings, but the user later prohibited paid APIs.
+Markdown KB is local, inspectable, and free. Vector retrieval would need embedding dependencies and a heavier runtime.
 
 ### Alternatives
 
-- Vector RAG with OpenAI embeddings: not allowed.
+- Vector retrieval with hosted embeddings: outside the local-first scope.
 - Vector RAG with local embeddings: possible, but requires extra model dependencies.
 - Hybrid search: good production direction, too much for MVP.
 

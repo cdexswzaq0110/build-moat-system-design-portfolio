@@ -6,7 +6,7 @@ This repository contains three local-first system design prototypes:
 
 - QR Code Generator
 - Knowledge Base Q&A Bot
-- ChatGPT Task Scheduler
+- Task Scheduler
 
 The implementation emphasizes clear API contracts, simple local operations, testable architecture, and product-oriented browser interfaces.
 
@@ -28,7 +28,7 @@ The implementation emphasizes clear API contracts, simple local operations, test
 - SQLite is used for local persistence where persistence is required.
 - The knowledge base implementation uses local Markdown retrieval.
 - Paid APIs are not used.
-- MCP Inspector support in `chatgpt_task` is optional; the primary demo path is the FastAPI web application.
+- The task scheduler includes an optional developer automation interface; the primary demo path is the FastAPI web application.
 
 ## Local Demo URLs
 
@@ -36,7 +36,7 @@ The implementation emphasizes clear API contracts, simple local operations, test
 |---|---|
 | QR Code Generator | `http://127.0.0.1:8001` |
 | Knowledge Base Q&A Bot | `http://127.0.0.1:8002` |
-| ChatGPT Task Scheduler | `http://127.0.0.1:8003` |
+| Task Scheduler | `http://127.0.0.1:8003` |
 
 ## Verification Summary
 

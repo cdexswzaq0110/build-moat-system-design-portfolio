@@ -14,6 +14,6 @@ Ship a local MCP task scheduler server.
 
 ## Out of Scope
 
-- Natural language parsing through paid LLM APIs
+- Natural language parsing through Hosted text-generation APIs
 - Recurring tasks
 - Distributed workers

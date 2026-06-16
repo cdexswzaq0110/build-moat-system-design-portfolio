@@ -1,8 +1,4 @@
-# ChatGPT Task Scheduler Design Questions
-
-## Context
-
-This project uses the Challenge Track because the scaffold files and original `PROMPT.md` were missing. The MVP was rebuilt from the README and the user's exercise description.
+# Task Scheduler Design Questions
 
 ## 1. Watcher vs Cron: why separate them?
 
@@ -62,7 +58,7 @@ Without a bucket/index strategy, the watcher risks scanning all pending jobs eve
 
 ### Alternatives
 
-- Index only `due_at`: acceptable for many systems, but buckets make the partitioning concept explicit for this exercise.
+- Index only `due_at`: acceptable for many systems, but buckets make the partitioning strategy explicit.
 - Partition by day/hour: fewer partitions, but less precise scans.
 
 ### Trade-off
@@ -73,7 +69,7 @@ The bucket duplicates information from `due_at`. That duplication is intentional
 
 Keep both `due_at` and bucket fields. Add composite indexes by `(status, due_bucket)` and possibly shard/partition by bucket for large scale.
 
-## 4. `task.create` vs `createTask`: does naming matter to LLMs?
+## 4. `task.create` vs `createTask`: does naming matter?
 
 ### Decision
 
@@ -81,7 +77,7 @@ Use dotted tool names such as `task.create`, `task.list`, `task.get`, and `task.
 
 ### Why
 
-Dotted names group tools by domain. LLMs and humans can see that all task operations belong together. This reduces ambiguity when many tools exist.
+Dotted names group tools by domain. Developers and operators can see that all task operations belong together. This reduces ambiguity when many tools exist.
 
 ### Alternatives
 
@@ -121,19 +117,19 @@ The registry requires handlers to share a common calling convention. That is acc
 
 Add per-tool schema, permissions, observability labels, and structured error mapping to the registry.
 
-## 6. What if `npx` is unavailable?
+## 6. What if Node.js tooling is unavailable?
 
 ### Decision
 
-Make MCP Inspector optional and provide a FastAPI browser UI plus HTTP API as the primary local demo path.
+Make the developer integration optional and provide a FastAPI browser UI plus HTTP API as the primary local demo path.
 
 ### Why
 
-The learning goal is scheduler design, not debugging Node.js availability. If `npx` fails, the user still needs a reliable way to create tasks, inspect due jobs, and verify the data model.
+The core product goal is task scheduling, not Node.js tooling. If `npx` is unavailable, the user still needs a reliable way to create tasks, inspect due jobs, and verify the data model.
 
 ### Alternatives
 
-- Require Node.js: faithful to MCP Inspector, but blocks users with broken npm/npx setups.
+- Require Node.js: useful for optional integrations, but blocks users with broken npm/npx setups.
 - Use only CLI scripts: reliable, but weak product experience.
 - Build a browser UI: slightly more code, but easiest to demo and inspect.
 

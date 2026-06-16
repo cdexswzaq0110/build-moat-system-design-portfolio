@@ -14,6 +14,6 @@ Ship a local Markdown KB Q&A API.
 
 ## Out of Scope
 
-- Paid LLM APIs
+- Hosted text-generation APIs
 - FAISS vector search
 - Streaming chat UI

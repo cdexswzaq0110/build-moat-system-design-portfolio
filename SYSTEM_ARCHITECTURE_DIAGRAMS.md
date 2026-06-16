@@ -77,7 +77,7 @@ flowchart TD
 - 問題本質：只根據本機 Markdown 知識庫回答問題，不憑空猜。
 - 核心資料：`docs/sample/*.md` 與 `.kb/index.json`。
 - 核心原則：先檢索，再回答；答案必須有來源；找不到證據就拒答。
-- MVP 邊界：關鍵字檢索與抽取式答案；不使用付費 API、不使用外部 LLM、不使用向量資料庫。
+- MVP 邊界：關鍵字檢索與抽取式答案；不使用付費 API、不使用外部生成服務、不使用向量資料庫。
 
 ```mermaid
 flowchart TD
@@ -148,7 +148,7 @@ Ask Question
 → 回傳答案與 source / heading / score
 ```
 
-## 3. ChatGPT Task Scheduler
+## 3. Task Scheduler
 
 ### 核心設計重點
 

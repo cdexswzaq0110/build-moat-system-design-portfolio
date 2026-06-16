@@ -14,4 +14,4 @@ The prototype is a local stdio MCP server with simple durable state and no paid 
 
 ## Consequences
 
-The server can run in MCP Inspector and Claude-compatible clients. SQLite keeps setup local and deterministic.
+The server can run in developer inspector and compatible local clients. SQLite keeps setup local and deterministic.

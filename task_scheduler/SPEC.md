@@ -1,10 +1,8 @@
-# ChatGPT Task Scheduler MCP Server Specification
+# Task Scheduler MCP Server Specification
 
 ## Track
 
 Challenge Track.
-
-The original `PROMPT.md` was missing from the repository, so this MVP specification was rebuilt from `README.md` and the user-provided exercise description.
 
 ## Goal
 
@@ -16,7 +14,7 @@ Create a local task scheduler that exposes:
 ## Non-Goals
 
 - No paid API usage.
-- No LLM-based natural language parsing.
+- No natural-language due-date parsing.
 - No recurring jobs.
 - No distributed workers.
 - No external queue in this MVP.

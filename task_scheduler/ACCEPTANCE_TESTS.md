@@ -1,4 +1,4 @@
-# ChatGPT Task Scheduler BDD
+# Task Scheduler BDD
 
 ## Feature: Browser Task Management
 
@@ -17,7 +17,7 @@ Then the task should move to completed status
 ### Scenario: List available tools
 
 Given the MCP server is running  
-When MCP Inspector connects  
+When developer inspector connects  
 Then it should show these tools:
 
 - `task.create`

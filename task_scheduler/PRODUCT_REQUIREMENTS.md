@@ -1,27 +1,27 @@
-# ChatGPT Task Scheduler MCP Server PRD
+# Task Scheduler PRD
 
 ## Problem
 
-LLM clients need a structured way to create and manage scheduled tasks through MCP tools instead of relying on free-form text.
+Independent builders need a focused way to create, schedule, track, and complete time-based tasks without setting up a full project-management system.
 
 ## Target User
 
-- Workshop participant learning MCP.
-- Developer testing MCP Inspector.
-- Agent builder exploring tool naming and registry routing.
+- Independent developer managing focused work.
+- Student planning project deadlines.
+- Freelancer tracking client tasks and due times.
+- Developer who wants an optional local automation API.
 
 ## Goals
 
-1. Expose a local browser UI and HTTP API that work without `npx`.
-2. Keep the MCP stdio server available as an optional interface.
-3. Provide four task tools.
-3. Persist tasks locally with SQLite.
-4. Support due-time bucket scanning logic.
-5. Run without paid APIs.
+1. Expose a polished browser dashboard and HTTP API.
+2. Persist tasks locally with SQLite.
+3. Support due-time bucket scanning logic.
+4. Support create, list, get, update, complete, cancel, and process-due workflows.
+5. Run without paid services or external accounts.
 
 ## Non-Goals
 
-- Natural language parsing through paid LLM APIs.
+- Natural-language due-date parsing.
 - Real notifications.
 - Recurring tasks.
 - Queue/worker implementation.
@@ -32,7 +32,7 @@ LLM clients need a structured way to create and manage scheduled tasks through M
 
 ### Story 0: Use Without npx
 
-As a learner whose machine cannot run `npx`, I want a browser UI so that I can still verify and demo the scheduler.
+As a user, I want a browser dashboard so that I can create, review, and complete scheduled tasks quickly.
 
 Acceptance:
 
@@ -42,7 +42,7 @@ Acceptance:
 
 ### Story 1: Create Task
 
-As an MCP client, I want to call `task.create` so that I can store a scheduled task.
+As an automation client, I want to call `task.create` so that I can store a scheduled task.
 
 Acceptance:
 
@@ -52,7 +52,7 @@ Acceptance:
 
 ### Story 2: List Tasks
 
-As an MCP client, I want to call `task.list` so that I can inspect stored tasks.
+As an automation client, I want to call `task.list` so that I can inspect stored tasks.
 
 Acceptance:
 
@@ -61,7 +61,7 @@ Acceptance:
 
 ### Story 3: Get Task
 
-As an MCP client, I want to call `task.get` so that I can inspect a specific task.
+As an automation client, I want to call `task.get` so that I can inspect a specific task.
 
 Acceptance:
 
@@ -70,7 +70,7 @@ Acceptance:
 
 ### Story 4: Complete Task
 
-As an MCP client, I want to call `task.complete` so that I can mark work finished.
+As an automation client, I want to call `task.complete` so that I can mark work finished.
 
 Acceptance:
 
@@ -81,10 +81,10 @@ Acceptance:
 
 - Browser UI can create and complete a task.
 - HTTP API smoke tests pass.
-- Optional MCP Inspector can load the server when Node.js is available.
-- Four MCP tools are listed when optional MCP is used.
+- Optional automation interface can load when Node.js is available.
+- Task tools are listed when the optional automation interface is used.
 - Core tests pass.
-- No paid API key is required.
+- No paid service key is required.
 
 ## Risks
 
@@ -97,4 +97,4 @@ Acceptance:
 - Durable queue.
 - Worker execution.
 - Recurring schedules.
-- MCP resources and prompts.
+- Automation resources and prompts.

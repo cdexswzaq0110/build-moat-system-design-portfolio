@@ -1,4 +1,4 @@
-# ChatGPT Task Scheduler Runbook
+# Task Scheduler Runbook
 
 ## Environment
 
@@ -7,21 +7,21 @@
 - Node.js is not required for the main local demo
 - Paid APIs: none
 
-The main verification path is the local FastAPI web app. MCP Inspector is optional because `npx` may be unavailable on some machines.
+The main verification path is the local FastAPI web app. developer inspector is optional because `npx` may be unavailable on some machines.
 
 ## Install
 
 ### Windows / PowerShell
 
 ```powershell
-cd chatgpt_task
+cd task_scheduler
 python -m pip install -r requirements.txt
 ```
 
 ### WSL / Linux
 
 ```bash
-cd chatgpt_task
+cd task_scheduler
 python3 -m pip install -r requirements.txt
 ```
 
@@ -30,7 +30,7 @@ python3 -m pip install -r requirements.txt
 ### Windows / PowerShell
 
 ```powershell
-cd chatgpt_task
+cd task_scheduler
 python -m uvicorn app.main:app --reload --port 8003
 ```
 
@@ -43,7 +43,7 @@ http://127.0.0.1:8003
 ### WSL / Linux
 
 ```bash
-cd chatgpt_task
+cd task_scheduler
 python3 -m uvicorn app.main:app --reload --port 8003
 ```
 
@@ -55,12 +55,12 @@ http://127.0.0.1:8003
 
 The browser UI can create tasks, show pending/completed/due-now views, and complete tasks without Node.js.
 
-## Optional MCP Inspector
+## Optional developer inspector
 
 Use this only if Node.js and `npx` work on your machine:
 
 ```powershell
-cd chatgpt_task
+cd task_scheduler
 python -m pip install -r requirements-mcp.txt
 npx @modelcontextprotocol/inspector python -m app.mcp_server
 ```
@@ -112,14 +112,14 @@ Complete:
 ### Windows / PowerShell
 
 ```powershell
-cd chatgpt_task
+cd task_scheduler
 python -m pytest tests
 ```
 
 ### WSL / Linux
 
 ```bash
-cd chatgpt_task
+cd task_scheduler
 python3 -m pytest tests
 ```
 
@@ -131,5 +131,5 @@ The app creates `tasks.sqlite3` when task storage is initialized.
 
 - If `npx` is unavailable, use the web app at `http://127.0.0.1:8003`.
 - If port `8003` is busy, change `--port 8003` to another port.
-- If MCP Inspector fails, first verify the web app and tests; MCP is optional.
+- If developer inspector fails, first verify the web app and tests; MCP is optional.
 - If dependency conflicts appear, recreate a project-local virtual environment.

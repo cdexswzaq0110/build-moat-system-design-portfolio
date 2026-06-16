@@ -1,4 +1,4 @@
-# ChatGPT Task Scheduler API And MCP Contract
+# Task Scheduler API And MCP Contract
 
 ## HTTP Base URL
 

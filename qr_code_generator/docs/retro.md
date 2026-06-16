@@ -10,7 +10,7 @@ Blocking private targets belongs in validation, not inside route handlers.
 
 ## Lacked
 
-Original `PROMPT.md` and BDD files were missing.
+Early requirements were consolidated into product and architecture documents.
 
 ## Longed For
 

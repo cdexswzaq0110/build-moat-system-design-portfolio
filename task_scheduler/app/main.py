@@ -1,4 +1,4 @@
-from contextlib import asynccontextmanager
+﻿from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
@@ -15,7 +15,7 @@ async def lifespan(_: FastAPI):
 
 
 initialize_database()
-app = FastAPI(title="ChatGPT Task Scheduler", lifespan=lifespan)
+app = FastAPI(title="Task Scheduler", lifespan=lifespan)
 app.include_router(router)
 
 

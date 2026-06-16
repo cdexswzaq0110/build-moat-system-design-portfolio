@@ -4,8 +4,6 @@
 
 Challenge Track.
 
-The original `PROMPT.md` was missing from the repository, so this MVP specification was rebuilt from `README.md` and the user-provided exercise description.
-
 ## Goal
 
 Create a local FastAPI service that accepts a public URL, stores it with a short token, returns a QR code image endpoint, and redirects visitors through the token.

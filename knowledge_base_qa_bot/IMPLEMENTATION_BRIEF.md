@@ -34,7 +34,7 @@ The implementation uses a Markdown knowledge base strategy:
 
 1. Section-level retrieval is more precise than whole-file retrieval and more readable than arbitrary chunks.
 2. JSON index storage is simple, inspectable, and adequate for small local knowledge bases.
-3. No external LLM prompt is required because this MVP uses extractive answering.
+3. No external generation prompt is required because this MVP uses extractive answering.
 4. Citations include filename, heading, and retrieval score.
 5. Weak retrieval returns an explicit cannot-confirm answer.
 

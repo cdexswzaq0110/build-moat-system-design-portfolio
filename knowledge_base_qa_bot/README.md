@@ -2,7 +2,7 @@
 
 Knowledge Base Q&A Bot is a local retrieval prototype for answering questions from Markdown documents. It builds a section-level index from local Markdown files, ranks relevant sections with keyword retrieval, returns an extractive answer, and cites the matched sources.
 
-This implementation is intentionally local-first. It does not require OpenAI API keys, paid embedding APIs, FAISS, or external LLM calls.
+This implementation is intentionally local-first. It does not require external service keys, paid embedding APIs, FAISS, or external generation calls.
 
 ## Features
 

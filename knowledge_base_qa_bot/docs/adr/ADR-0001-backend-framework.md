@@ -10,8 +10,8 @@ Use Python, FastAPI, and local Markdown KB retrieval. Do not use paid APIs.
 
 ## Context
 
-The exercise asks for a knowledge base Q&A prototype. The user explicitly disallowed APIs that cost extra money.
+The project is a local knowledge base Q&A prototype designed to run without paid services.
 
 ## Consequences
 
-The bot returns extractive, source-grounded answers. It will be less fluent than an LLM answer, but it is deterministic, free to run locally, and easier to debug.
+The bot returns extractive, source-grounded answers. It will be less fluent than a generated answer, but it is deterministic, free to run locally, and easier to debug.

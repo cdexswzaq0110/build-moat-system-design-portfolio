@@ -4,8 +4,6 @@
 
 Challenge Track with Markdown KB retrieval.
 
-The original `PROMPT.md` was missing from the repository, so this MVP specification was rebuilt from `README.md` and the user-provided exercise description.
-
 ## Goal
 
 Create a local FastAPI service that indexes Markdown documents and answers questions with source-grounded extractive answers.
@@ -13,7 +11,7 @@ Create a local FastAPI service that indexes Markdown documents and answers quest
 ## Non-Goals
 
 - No paid API usage.
-- No OpenAI API.
+- No external API.
 - No hosted embedding API.
 - No FAISS/vector route in this MVP.
 - No streaming UI.
@@ -133,7 +131,7 @@ Runtime ranked source object:
 ## Design Decisions
 
 - Use section-level retrieval because it is more precise than whole files and easier to inspect than arbitrary chunks.
-- Use JSON index because the MVP knowledge base is small and should be agent-readable.
+- Use JSON index because the MVP knowledge base is small and should be developer-readable.
 - Use extractive answers to satisfy the no-paid-API constraint.
 - Return explicit fallback when retrieval has no match.
 

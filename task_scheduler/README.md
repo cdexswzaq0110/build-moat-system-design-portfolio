@@ -1,8 +1,8 @@
-# ChatGPT Task Scheduler
+# Task Scheduler
 
-ChatGPT Task Scheduler is a local task scheduling prototype with a product-style SaaS dashboard. It provides a FastAPI browser interface and HTTP API for creating scheduled tasks, filtering task states, finding due tasks, editing schedules, deleting tasks, and marking tasks as complete. An MCP server is included as an optional integration path for MCP-compatible clients.
+Task Scheduler is a local task scheduling prototype with a product-style SaaS dashboard. It provides a FastAPI browser interface and HTTP API for creating scheduled tasks, filtering task states, finding due tasks, editing schedules, deleting tasks, and marking tasks as complete. An MCP server is included as an optional integration path for MCP-compatible clients.
 
-The primary demo does not require Node.js, `npx`, OpenAI API keys, or paid services.
+The primary demo does not require Node.js, `npx`, external service keys, or paid services.
 
 ## Features
 
@@ -79,7 +79,7 @@ docs/screenshots/task-scheduler-dashboard.png
 docs/screenshots/task-scheduler-mobile.png
 ```
 
-## Optional MCP Inspector
+## Optional developer inspector
 
 Use this path only when Node.js and `npx` are available:
 

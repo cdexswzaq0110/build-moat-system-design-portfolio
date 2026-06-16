@@ -6,7 +6,7 @@ Users need a fast way to turn a public URL into a QR code and short redirect lin
 
 ## Target User
 
-- Workshop participant testing a QR code prototype.
+- Developer testing a QR code prototype.
 - Small creator or operator who wants a QR code pointing to a website.
 - Developer validating API behavior through curl or Swagger.
 
