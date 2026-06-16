@@ -1,40 +1,18 @@
-from datetime import datetime
-from io import BytesIO
-from typing import Optional
+from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
 
-import qrcode
-from fastapi import FastAPI, HTTPException, Response
-from fastapi.responses import HTMLResponse, RedirectResponse
-from pydantic import BaseModel, Field
-
-from .repository import create_link, find_link, initialize_database, is_expired
-from .token_gen import generate_token
-from .url_validator import validate_url
+from .repository import initialize_database
+from .routes import router
 
 
 app = FastAPI(title="QR Code Generator")
-
-
-class CreateLinkRequest(BaseModel):
-    url: str = Field(..., min_length=1)
-    expires_at: Optional[str] = None
-
-
-class CreateLinkResponse(BaseModel):
-    token: str
-    url: str
-    short_url: str
-    qr_url: str
+app.include_router(router)
+initialize_database()
 
 
 @app.on_event("startup")
 def startup() -> None:
     initialize_database()
-
-
-@app.get("/health")
-def health() -> dict:
-    return {"status": "ok"}
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -515,53 +493,3 @@ def serve_home() -> HTMLResponse:
         </html>
         """
     )
-
-
-@app.post("/links", response_model=CreateLinkResponse)
-def create_short_link(request: CreateLinkRequest) -> CreateLinkResponse:
-    try:
-        normalized_url = validate_url(request.url)
-        if request.expires_at:
-            datetime.fromisoformat(request.expires_at)
-    except ValueError as error:
-        raise HTTPException(status_code=400, detail=str(error)) from error
-
-    for _ in range(5):
-        token = generate_token()
-        try:
-            create_link(token, normalized_url, request.expires_at)
-            return CreateLinkResponse(
-                token=token,
-                url=normalized_url,
-                short_url=f"/r/{token}",
-                qr_url=f"/qr/{token}.png",
-            )
-        except Exception:
-            continue
-
-    raise HTTPException(status_code=500, detail="Could not allocate token")
-
-
-@app.get("/qr/{token}.png")
-def get_qr_code(token: str) -> Response:
-    link = find_link(token)
-    if link is None:
-        raise HTTPException(status_code=404, detail="Link not found")
-    if is_expired(link):
-        raise HTTPException(status_code=410, detail="Link expired")
-
-    image = qrcode.make(link["target_url"])
-    output = BytesIO()
-    image.save(output, format="PNG")
-    return Response(content=output.getvalue(), media_type="image/png")
-
-
-@app.get("/r/{token}")
-def redirect(token: str) -> RedirectResponse:
-    link = find_link(token)
-    if link is None:
-        raise HTTPException(status_code=404, detail="Link not found")
-    if is_expired(link):
-        raise HTTPException(status_code=410, detail="Link expired")
-
-    return RedirectResponse(link["target_url"], status_code=307)

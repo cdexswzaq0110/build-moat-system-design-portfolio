@@ -8,6 +8,10 @@ QR Code Generator is a local FastAPI application that creates a short redirect l
 - Generate a PNG QR Code for the stored destination.
 - Redirect through `/r/{token}`.
 - Support optional expiration timestamps.
+- Update QR destinations without changing the token.
+- Soft delete QR links while preserving metadata.
+- Track redirect scans and return daily analytics.
+- Check QR status before sharing.
 - Provide a browser UI and HTTP API.
 - Store link metadata in local SQLite.
 
@@ -30,6 +34,12 @@ http://127.0.0.1:8001
 |---|---|---|
 | `GET` | `/health` | Health check |
 | `POST` | `/links` | Create a short link and QR Code URL |
+| `POST` | `/api/qr/create` | Product API alias for QR creation |
+| `GET` | `/api/qr/{token}` | Return link metadata |
+| `PATCH` | `/api/qr/{token}` | Update destination or expiration |
+| `DELETE` | `/api/qr/{token}` | Soft delete a link |
+| `GET` | `/api/qr/{token}/analytics` | Return scan totals |
+| `GET` | `/api/qr/{token}/check` | Return active/deleted/expired status |
 | `GET` | `/qr/{token}.png` | Return QR Code PNG |
 | `GET` | `/r/{token}` | Redirect to the destination URL |
 
@@ -39,6 +49,12 @@ See [API_REFERENCE.md](API_REFERENCE.md) for request and response details.
 
 ```powershell
 python -m pytest tests
+```
+
+Expected result:
+
+```text
+5 passed
 ```
 
 ## Documentation
